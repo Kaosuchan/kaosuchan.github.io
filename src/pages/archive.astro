@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Link from "@components/Link.astro";
+import { getCollection } from 'astro:content';
+const blogEntries = await getCollection('blog');
+---
+
+<Layout title="Archive">
+<h1 class="font-normal font-serif mx-10 mt-10 mb-8 text-3xl md:text-5xl md:mt-12 md:mb-10 md:mx-12">Archive</h1>
+<table class="container mx-auto mb-12 max-w-[90%] border-collapse table-auto">
+<tr class="border-b-2 border-solid border-slate-500">
+    <th class="p-2">Title</th>
+    <th class="p-2">Time</th>
+    <th class="p-2 w-[60%]">Description</th>
+</tr>
+{
+    blogEntries.sort((a, b) => {
+        return b.data.publishDate.getTime() - a.data.publishDate.getTime();
+    }).map(entry =>(
+    <tr>
+        <td class="p-2 text-center"><Link href={`/posts/${entry.slug}`} target="_self">{entry.data.title}</Link></td>
+        <td class="p-2 text-center font-mono text-sm">{entry.data.publishDate.toLocaleDateString()}</td>
+        <td class="p-2">{entry.data.description}</td>
+    </tr>
+    ))
+}
+</table>
+</Layout>

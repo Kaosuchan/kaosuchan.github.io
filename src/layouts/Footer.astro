@@ -1,0 +1,23 @@
+---
+import Link from '../components/Link.astro';
+
+export interface Props {
+
+}
+
+---
+
+<footer class="flex items-center my-16 justify-center text-sm">
+    <p class="text-center p-3">
+        <!-- <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+            <img alt="Creative Commons License" class="border-0 inline-block" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+        </a><br /> -->
+        This site is licensed under a <Link href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</Link>.<br>
+        (Except all code examples licensed under <Link href="/license.txt">MIT License</Link>)<br>
+        Built with
+        <Link href="https://astro.build">Astro</Link> and
+        <Link href="https://tailwindcss.com/">tailwind</Link><br>
+        Built time: <span class=" font-mono text-xs">{(new Date()).toLocaleString()}</span><br>
+        &copy; 2023 {"kaosu"} <span class="ml-1">All rights received.</span><br>
+    </p>
+</footer>
