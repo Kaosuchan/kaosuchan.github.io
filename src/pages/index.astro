@@ -1,11 +1,15 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import Article from '@components/Article.astro';
+import VCard from '@components/VCard.astro';
 ---
 
 <Layout title="kaosu's blog">
-    <Article>
-        <h1>Welcome, Gypsy.</h1>
+<div class="w-[80%] max-w-[960px] mx-auto min-w-[60%] animate-float-up min-h-[30rem]">
+    <article class="py-10 w-full">
+        <VCard />
+        <h1 class="font-serif text-3xl md:text-5xl font-normal my-10">Welcome, Gypsy.</h1>
         <p>趁着考试周偷偷摸鱼摸出来的博客，不对，我不是应该好好复习的吗？算了，我摆了。</p>
-    </Article>
+    </article>
+</div>
 </Layout>
