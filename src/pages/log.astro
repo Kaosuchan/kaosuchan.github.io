@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Title from "@components/Title.astro";
+import Link from "@components/Link.astro";
+
+const devlogEntries = await getCollection('devlog');
+
+---
+
+<Layout title="log">
+<div class="mt-12 w-[80%] mx-auto max-w-[840px]">
+    <Title>DevLogs</Title>
+    <table class="container mx-auto mb-12 max-w-[90%] border-collapse table-auto">
+        <tr class="border-b-2 border-solid border-slate-500">
+            <th class="p-2">Time</th>
+            <th class="p-2 w-[70%]">Description</th>
+        </tr>
+        {
+            devlogEntries.sort((a, b) => {
+                return b.data.date.getTime() - a.data.date.getTime();
+            }).map(entry =>(
+            <tr>
+                <td class="p-2 text-center"><Link href={`/log/${entry.slug}`} target="_self">{entry.slug}</Link></td>
+                <td class="p-2">{entry.data.description || "No Desciption"}</td>
+            </tr>
+            ))
+        }
+        </table>
+</div>
+</Layout>

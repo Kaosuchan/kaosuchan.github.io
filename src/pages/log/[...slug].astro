@@ -1,0 +1,28 @@
+---
+import { getCollection, getEntryBySlug } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Article from "@components/Article.astro";
+import Title from "@components/Title.astro";
+
+export async function getStaticPaths() {
+    const devlogEntries = await getCollection('devlog');
+    return devlogEntries.map(entry => {
+        const date: Date = entry.data.date;
+        if(date.toISOString().substring(0, 10) != entry.slug)
+            throw new Error("The filename must be the date of log.");
+        return {
+            params: { slug: entry.slug },
+            props: { entry },
+        };
+    });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<Layout title={`${entry.slug}`}>
+    <Article>
+        <p class="text-center text-4xl font-mono pt-12">{entry.slug}</p>
+        <Content />
+    </Article>
+</Layout>

@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntryBySlug } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Layout from '@layouts/Layout.astro';
 import Article from '@components/Article.astro';
 // 1. Generate a new path for every collection entry
@@ -15,7 +15,7 @@ const { Content } = await entry.render();
 ---
 <Layout title={entry.data.title}>
 <Article>
-  <h1 class="font-sans">{entry.data.title}</h1>
+  <h1 class="font-serif">{entry.data.title}</h1>
   <Content />
 </Article>
 </Layout>

@@ -20,7 +20,7 @@ const blogEntries = await getCollection('blog');
     }).map(entry =>(
     <tr>
         <td class="p-2 text-center"><Link href={`/posts/${entry.slug}`} target="_self">{entry.data.title}</Link></td>
-        <td class="p-2 text-center font-mono text-sm">{entry.data.publishDate.toLocaleDateString()}</td>
+        <td class="p-2 text-center font-mono text-sm">{entry.data.publishDate.toLocaleDateString('zh-CN')}</td>
         <td class="p-2">{entry.data.description}</td>
     </tr>
     ))

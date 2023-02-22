@@ -4,24 +4,25 @@ export interface Props {
 }
 ---
 
-<header class="w-full h-16 bg-gray-100">
+<header class="w-full h-16 bg-gray-100 sticky top-0 bg-opacity-80 z-10 backdrop-blur-sm shadow-md">
     <span class="h-full float-left inline-flex items-center px-10 font-sans font-bold tracking-wide text-2xl">Blog</span>
-    <a class="h-full float-right inline-flex items-center px-8 font-light hover:bg-sky-200" href="/archive">
+    <span class="h-full w-2 float-right md:hidden inline-block"></span>
+    <a class="h-full float-right inline-flex items-center px-2 md:px-8 font-light hover:bg-sky-200" href="/archive">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-        </svg><span class="ml-0.5">Archive</span>
+        </svg><span class="ml-0.5 hidden md:inline">Archive</span>
     </a>
-    <a class="h-full float-right items-center px-8 font-light hover:bg-sky-200 hidden md:inline-flex" href="/about">
+    <a class="h-full float-right items-center px-2 md:px-8 font-light hover:bg-sky-200 inline-flex" href="/about">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-        </svg><span class="ml-0.5">About</span>
+        </svg><span class="ml-0.5 hidden md:inline">About</span>
     </a>
-    <a class="h-full float-right items-center px-8 font-light hover:bg-sky-200 hidden md:inline-flex" href="/discuss">
+    <a class="h-full float-right items-center px-2 md:px-8 font-light hover:bg-sky-200 inline-flex" href="/discuss">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-        </svg><span class="ml-0.5">Discuss</span>
+        </svg><span class="ml-0.5 hidden md:inline">Discuss</span>
     </a>
-    <a class="h-full float-right inline-flex items-center px-8 font-light hover:bg-sky-200" href="/">
+    <a class="h-full float-right inline-flex items-center px-5 md:px-8 font-light hover:bg-sky-200" href="/">
         Home
     </a>
 </header>
