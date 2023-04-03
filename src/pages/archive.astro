@@ -17,7 +17,9 @@ const blogEntries = await getCollection('blog');
 {
     blogEntries.sort((a, b) => {
         return b.data.publishDate.getTime() - a.data.publishDate.getTime();
-    }).map(entry =>(
+    })
+    .filter(entry => !entry.data.draft)
+    .map(entry =>(
     <tr>
         <td class="p-2 text-center"><Link href={`/posts/${entry.slug}`} target="_self">{entry.data.title}</Link></td>
         <td class="p-2 text-center font-mono text-sm">{entry.data.publishDate.toLocaleDateString('zh-CN')}</td>
