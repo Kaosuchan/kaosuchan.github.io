@@ -1,6 +1,6 @@
 ---
 title: BanG Dream!
-tags: [ devlog ]
+tags: [ blackHistory ]
 publishDate: 2020-11-15
 description: 啊啊啊是黑历史啊
 ---
