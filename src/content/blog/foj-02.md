@@ -8,7 +8,7 @@ description: Tailwind 真香
 由于第一次做的前端样式我并不是很满意，所以重开了一次，这一次集成了
 Tailwind。虽然 Tailwind 还是有很多问题，但还是可以用。
 
-在重开的时候还考虑过使用一个和 Fresh 很像的前端框架 Fresh，但是
+在重开的时候还考虑过使用一个和 Astro 很像的前端框架 Fresh，但是
 由于 Fresh 在 deno v0.13.1 版本的 Language Server 不太友好
 所以还是最终决定使用 Astro。虽然 Astro 可能对于搭建 OJ 这样的网
 站可能不太友好，但使用 Javascript 还是可以勉强糊弄过去。（但这样
