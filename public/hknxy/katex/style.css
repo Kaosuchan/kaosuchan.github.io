@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  border: 0;
+}
+
+:root {
+  font-size: 20px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  letter-spacing: 0.01rem;
+}
+
+div#root {
+  top: 0;
+  left: 0;
+  position: absolute;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+article > div {
+  box-sizing: content-box;
+  width: min(100vw - 2rem, 960px);
+  min-height: calc(100vh - 2rem);
+  padding: 1rem calc(max(2rem, 100vw - 960px) / 2);
+  margin: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-clip: padding-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, li {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+h6 {
+  font-size: 1.05rem;
+}
+
+h5 {
+  font-size: 1.3125rem;
+}
+
+h4 {
+  font-size: 1.640625rem;
+}
+
+h3 {
+  font-size: 2.05078125rem;
+}
+
+h2 {
+  font-size: 2.5634765625rem;
+}
+
+h1 {
+  font-size: 3.2043457031rem;
+}
+
+pre > code {
+  padding: 0 !important;
+  overflow-x: scroll;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+a:hover {
+  color: hotpink;
+}
+
+.right {
+  text-align: right;
+}
+
+span.katex {
+  font-size: 1.1em;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=style.css.map */

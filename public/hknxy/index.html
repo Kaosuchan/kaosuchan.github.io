@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HKNXY</title>
+    
+    
+  <link rel="stylesheet" href="./assets/index-29324566.css">
+  <link rel="stylesheet" href="./katex/katex.min.css" crossorigin="anonymous">
+</head>
+
+<body>
+
+<article>
+    <div id="menu">
+        <h1 class="center"><a href="#H">H</a><a href="#K">K</a><a href="#N">N</a><a href="#X">X</a><a href="#Y">Y</a></h1>
+        <p class="center font-mono">x*y</p>
+    </div>
+    <div id="H">
+        <h2 class="center">H</h2>
+        <h4>题目大意</h4>
+        <p>给出三个数 $a,b,p$，其中 $p$ 是一个大于 $a,b$ 的素数。</p>
+        <p>现在可以按照如下方式构造出一个数列 $A=\ \lt A_1, A_2, \dots, A_p\gt$</p>
+        <ul>
+            <li>$A_1 \leftarrow 1$</li>
+            <li>$A_k \leftarrow A_{k-1} * t \bmod p, \text{ where } t\isin \{a, b, a^{-1}, b^{-1}\}$</li>
+        </ul>
+        <p>试问是否存在一种构造方案，使得数列 $A$ 满足：</p>
+        <ul>
+            <li>$A_1=A_p=1$</li>
+            <li>$\lt A_1, A_2, \dots, A_{p-1}\gt$ 是 $\lt1, 2, \dots, p-1\gt$ 的一种排列</li>
+        </ul>
+    </div>
+    <div>
+        <h4>题解</h4>
+        <p>如果我们将构造数列中的乘除改为加减的话，那么这道题就变得相对容易解决。具体的，我们考虑使用 $a, b$ 通过加减构造出模数 $m$（不一定是个素数）的完系，则存在构造的充要条件为 $\gcd(a, b, m)=1$。（证明放在 ppt 的<a href="#proof">末尾</a>）</p>
+        <p>由于 $p$ 是素数，故而 $p$ 必然存在一个原根 $g = O(p^{0.25})$。考虑求出 $a, b$ 在模 $p$ 意义下的离散对数 $\alpha = \log_ga, \beta = \log_gb$，而 $g^0,g^1,\dots,g^{p-1}$ 刚好构成 $p-1$ 的一个完系，而 $A_i=A_{i-1} * a\Longleftrightarrow g^{\log A_i}=g^{\log A_{i-1} + \alpha}$。（对于 $a^{-1},b,b^{-1}$ 可以进行同理转化）故问题转化为判断能否通过 $\alpha$ 和 $\beta$ 通过加减构造出 $p-1$ 的完系，即判断 $\gcd(\alpha,\beta,p-1)$ 是否为 $1$。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div id="K">
+        <h2 class="center">K</h2>
+        <h4>题目大意</h4>
+        <p>给出一个有 $n$ 个元素的可重集 $S=\{a_i\}$，定义 $\text{mex}(T) = \min\{k\isin \Bbb N\ |\ k \notin T\}$。现在有 $k$ 次操作，每次操作可以向 $S$ 中加入一个元素 $\text{mex}(S')$，其中 $S'\subseteq S$。问经过 $k$ 次操作后能够得到多少种不同的可重集？</p>
+        <p class="right">$0\le a_i\le2\times10^5\\1\le n,k\le2\times10^5$</p>
+    </div>
+    <div>
+        <h4>题解</h4>
+        <p>定义 $F_n=\sum\limits_{k=0}^{n-1}[k\notin S]$。考虑枚举新加入 $S$ 的数中最大的是多少，则答案为</p>
+        $$
+            \sum\limits_{i=0}\binom{(k-F_i-1)+(i+1)-1}{(i+1)-1}=\sum\limits_{i=0}\binom{k+i-F_i-1}{i}
+        $$
+        <p>时间复杂度：$O(n+k)$。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div id="N">
+        <h2 class="center">N</h2>
+        <h4>题目大意</h4>
+        <p>求有多少种满足一下条件的正整数数列：</p>
+        <ul>
+            <li>每一项的值不大于 $a$</li>
+            <li>相邻两项中至少其一的值小于 $b$</li>
+            <li>数列中所有的数的和为 $c$</li>
+        </ul>
+        <p class="right">$1\le b\le a\le10^4\\1\le c\le10^{12}$</p>
+    </div>
+    <div>
+        <h4>题解</h4>
+        <p>即求生成函数</p>
+        $$
+            F(z)=\frac{1+\sum_{k=b}^az^k}{1-\sum_{k=1}^{b-1}z^k-\sum_{k=1}^{b-1}z^k\sum_{k=b}^az^k}
+        $$
+        <p>麦克劳林级数展开后 $z^c$ 项的系数，套常系数线性递推的板子即可。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div>
+        <h4><sup>*</sup>常系数线性递推</h4>
+        <p>传统的做法基于多项式取模，这种做法的常数很大且代码复杂，难以调试。在这里介绍提出于 2020 年的新算法。这种算法能够在在相同的时间复杂度下有更加优秀的运行常数，且代码相较于前者更易实现。（主要前置知识只有 FFT）</p>
+        <p>一般而言，我们将线性递推写成如 $\frac{P(z)}{Q(z)}$ 的生成函数形式来求解。注意到 $Q(z)Q(-z)$ 中奇数次项全为 $0$，故有</p>
+        $$
+            \frac{P(z)}{Q(z)}=\frac{P(z)Q(-z)}{Q(z)Q(-z)}=\frac{P'_0(z^2)}{Q'(z^2)}+z\frac{P'_1(z^2)}{Q'(z^2)}
+        $$
+        <p>这样我们将生成函数的奇偶项分离开来，只需递归求解其中一侧即可。时间复杂度 $O(n\log n\log c)$。在本题的时间限制下可以通过此题。</p>
+    </div>
+    <div>
+        <p>考虑优化常数。记多项式 $A$ 的 DFT 数组为 $\widehat A$，我们可以从以下三个方面入手：</p>
+        <ul>
+            <li>将 $\widehat Q(z)$ 前半部分和后半部分交换即可得 $\widehat Q(-z)$。</li>
+            <li>注意到我们只需要乘法结果中的奇数/偶数项，我们可以将结果的 DFT 数组进行变换，得到只含奇数项/偶数项 DFT 的结果，再 IDFT。这样可以减小 FFT 一半的计算量。（Tips：FFT 中有将奇数项 DFT 和偶数项 DFT 合并的方法，考虑其逆变换即可）</li>
+            <li>进一步，我们考虑在计算过程中只保留 DFT 数组。在计算过程中，我们需要由长度为 $n$ 的 $\widehat A$ 得到 $2n$ 的 $\widehat A'$。注意到
+            $$
+            \begin{array}{rl}
+                \widehat A'_{2k} =&amp;\!\!\!\!\widehat A_k \\
+                \widehat A'_{2k+1} =&amp;\!\!\!\!\sum\limits_i (\omega_{2n}^iA_i)\omega_n^{ik}
+            \end{array}
+            $$
+            故只需将 $\widehat A$ 进行 IDFT 展开，每一项乘以 $\omega_{2n}^i$，再 DFT 即可。
+            </li>
+        </ul>
+        <p>这里的讲解比较粗糙，如需进一步了解，可以参考<a href="https://www.luogu.com.cn/blog/EntropyIncreaser/solution-p4723">这篇博客</a>或者<a href="https://arxiv.org/pdf/2008.08822.pdf">原论文</a>。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div id="X">
+        <h2 class="center">X</h2>
+        <p>由于原题面过于冗长且难以理解，在此直接给出等价命题：</p>
+        <p>给出 $n, m$ 及 $n$ 个两两不同的正整数 $w_1, w_2, \dots w_n$，求满足以下关系的函数 $F(z)$ 麦克劳林级数展开后 $z, z^2, \dots, z^m$ 项的系数。</p>
+        $$
+            \sum_{k=1}^nz^{w_k}F^2(z)-F(z)+1=0
+        $$
+    </div>
+    <div>
+        <h4>做法一</h4>
+        <p>令 $G(z)=\sum\limits_{k=1}^nz^{w_k}$，则我们可以把 $F(z)$ 表达出来</p>
+        $$
+            F(z)=\frac{1+\sqrt{1-4G(z)}}{2G(z)}
+        $$
+        <p>直接套用多项式开根和多项式求逆即可，设 $n,m$ 同阶，时间复杂度 $O(n\log n)$。</p>
+    </div>
+    <div>
+        <h4>做法二</h4>
+        <p>多项式开根本身就要使用牛顿迭代，不妨直接使用牛顿迭代来求 $F(z)$。</p>
+        <p>具体的，令 $\Tau(z)=G(z)z^2-z+1$，假设我们已求出 $F_m(z)\equiv F(z)\pmod{z^{2^m}}$，则有</p>
+        $$
+        \begin{array}{rll}
+            F_{m+1}\equiv&\!\!\!\!F_m(z)-\frac{\Tau(F_m(z))}{\Tau'(F_m(z))} &\mod{z^{2^{m+1}}}\\
+                \equiv&\!\!\!\! F_m(z)-\frac{G(z)F_m^2(z)-F_m(z)+1}{2G(z)F_m(z)-1}&\mod{z^{2^{m+1}}}\\
+                \equiv&\!\!\!\! {\Large\frac12}\!\left[F_m(z)+\frac{F_m(z)-2}{2G(z)F_m(z)-1}\right]&\mod{z^{2^{m+1}}}
+        \end{array}
+        $$
+        <p>由主定理知时间复杂度为 $O(n\log n)$。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div id="Y">
+        <h2 class="center">Y</h2>
+        <h4>题目大意</h4>
+        <p>给出 $k, m, p, a_0, t$，求 $t$ 是否为满足递推公式 $a_i\equiv ka_{i-1}+m\mod p$ 的数列 $\{a_i\}$ 中的一项。</p>
+        <p class="right">$0\le k, m, a_i, t\lt p$，$p$ 是素数</p>
+    </div>
+    <div>
+        <h4>题解</h4>
+        <p>如果 $k=0$，则数列的形态为 $a_0, m, m, m, \dots$，判断 $t$ 是否为 $a_0$ 或者 $m$ 即可。</p>
+        <p>如果 $k=1$，此时若 $m=0$，则数列全是 $a_0$；若 $m\ne 0$，则数列一定能够便利 $p$ 的一个完系，故而一定能在数列中找到 $t$。</p>
+        <p>如果 $k>1$，则我们可以求出 $a_n\equiv k^n(a_0+\frac m{k-1})-\frac m{k-1}\mod p$，若 $a_0+\frac m{k-1}=0$，则 $t+\frac m{k-1}$ 只能为 $0$。否则我们可以推出 $k^n=(t+\frac m{k-1})/(a_0+\frac m{k-1})$，使用 BSGS 判断是否有解即可。</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+    <div id="proof">
+        <p>给出三个数 $a, b, c$，可以按照如下方式构造出一个数列 $A=\lt A_0,A_1,\dots,A_{c-1},A_c\gt$。</p>
+        <ul>
+            <li>$A_0 \leftarrow 0$</li>
+            <li>$A_i \leftarrow A_{i-1} + t,\text{ where } t \isin\{a,-a,b,-b\}$</li>
+        </ul>
+        <p>现在需要使得构造出的数列 $A$ 满足</p>
+        <ul>
+            <li>$A_c\equiv0\mod c$</li>
+            <li>$A_0,A_1,\dots,A_{c-1}$ 是 $c$ 的一个完系</li>
+        </ul>
+        <p>证明：存在构造方案的充要条件为 $\gcd(a,b,c)=1$。</p>
+    </div>
+    <div>
+        <h4>必要性</h4>
+        <p>考虑反证，即若 $\gcd(a,b,c)=k>1$，令 $a=a'k,b=b'k,c=c'k$，则有 $\gcd(a',b',c')=1$。</p>
+        <p>注意到 $A_i=at+b(i-t)=k[a't+b'(i-t)]$，若 $A_i\equiv 1\mod c$，则有 $k[a't+b'(i-t)] = ksc' + 1 \Longrightarrow$ $k[a't + b'(i-t)-sc']=1 \Longrightarrow k\ |\ 1$，矛盾。故必要性成立。</p>
+    </div>
+    <div>
+        <h4>充分性</h4>
+        <p>令 $\alpha = \gcd(b, c), \beta = \frac c\alpha$，考虑构造一组数列 $A$：对于 $A_i$，对 $i$ 做带余除法 $i\div\beta=p\cdots r$，亦 $i=p\beta+r$，则 $A_i=pa+rb$。现在来证明 $A_0,A_1,\dots,A_{c-1}$ 是模 $c$ 的一个完系。考虑反证，即 $\exist i, j\isin \lbrack0,n\rparen\cap \N, i\ne j$ 且 $A_i\equiv A_j\pmod c$，亦 $(p_i-p_j)a+(r_i-r_j)b-sc=0$。令 $b=b'\alpha,c=c'\alpha$（亦 $c'=\beta$），则有 $(p_i-p_j)a+[(r_i-r_j)b'-s\beta]\alpha=0$。</p>
+        <p>注意到 $0\le p\lt \alpha, 0\le r\lt \beta$，若 $p_i=p_j$，则有 $(r_i-r_j)b'=s\beta$，又 $\because b'\perp\beta$，故必有 $\beta\ |\ (r_i-r_j)$，然而 $0\lt |r_i-r_j| \lt \beta$，矛盾。若 $p_i\ne p_j$，此时又 $\because a\perp\alpha$，故必有 $\alpha\ |\ (p_i-p_j)$，然而 $0\lt |p_i-p_j|\lt \alpha$，矛盾。故 $A_0,\dots,A_{c-1}$ 是模 $c$ 的一个完系，故充分性成立。</p>
+        <p class="right">$Q.E.D.$</p>
+        <a href="#menu">Back to the Top</a>
+    </div>
+</article>
+
+<script defer src="./katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="./katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+    });
+</script>
+
+</body>
+
+</html>
