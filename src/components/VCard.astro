@@ -48,5 +48,25 @@ const classes = _classes || "";
     <div class="font-bold mt-3">LINKS</div>
     <div><a class="text-green-500 hover:text-sky-400 font-normal" href="https://sqrtyz.github.io" target="_blank">Sqrtyz' Home</a></div>
     <div><a class="text-green-500 hover:text-sky-400 font-normal" href="https://www.cnblogs.com/wlzs1432" target="_blank">wlzs1432</a></div>
-    <div><a class="text-green-500 hover:text-sky-400 font-normal" href="https://www.cnblogs.com/cjjsb" target="_blank">「之前说好的windows7呢」</a></div>
+    <div><a class="text-green-500 hover:text-sky-400 font-normal" href="https://www.cnblogs.com/cjjsb" target="_blank" id="link-hl666">空気力学の詩</a></div>
 </div>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        let linkHl666 = document.getElementById('link-hl666');
+        if(!linkHl666) return ;
+        const HL666 = [
+            "「只会用低衣微写代码」",
+            "「过了样例还不交？」",
+            "「之前说好的windows7呢」",
+        ];
+        const original = linkHl666.innerHTML;
+        linkHl666.addEventListener('mouseenter', () => {
+            let i = Math.floor(Math.random() * HL666.length);
+            linkHl666.innerHTML = HL666[i];
+        })
+        linkHl666.addEventListener('mouseleave', () => {
+            linkHl666.innerHTML = original;
+        })
+    })
+</script>
